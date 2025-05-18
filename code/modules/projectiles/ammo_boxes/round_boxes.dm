@@ -11,6 +11,15 @@
 /obj/item/ammo_box/rounds/ap/empty
 	empty = TRUE
 
+/obj/item/ammo_box/rounds/ap_custom
+	name = "\improper rifle ammunition box (10x24mm custom AP)"
+	desc = "A 10x24mm armor-piercing ammunition box. Used to refill M41A MK2, and M4RA AP magazines. It comes with a leather strap allowing to wear it on the back."
+	overlay_content = "_ap_custom"
+	default_ammo = /datum/ammo/bullet/rifle/ap_custom
+
+/obj/item/ammo_box/rounds/ap_custom/empty
+	empty = TRUE
+
 /obj/item/ammo_box/rounds/le
 	name = "\improper rifle ammunition box (10x24mm LE)"
 	desc = "A 10x24mm armor-shredding ammunition box. Used to refill M41A MK2 LE magazines. It comes with a leather strap allowing to wear it on the back."
@@ -18,6 +27,51 @@
 	default_ammo = /datum/ammo/bullet/rifle/le
 
 /obj/item/ammo_box/rounds/le/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/le_custom
+	name = "\improper rifle ammunition box (10x24mm custom LE)"
+	desc = "A 10x24mm armor-shredding ammunition box. Used to refill M41A MK2 LE magazines. It comes with a leather strap allowing to wear it on the back."
+	overlay_content = "_le_custom"
+	default_ammo = /datum/ammo/bullet/rifle/le_custom
+
+/obj/item/ammo_box/rounds/le_custom/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/holo
+	name = "\improper rifle ammunition box (10x24mm holo-target)"
+	desc = "A 10x24mm holo-target ammunition box. Used to refill M41A MK2 holo-target magazines. It comes with a leather strap allowing to wear it on the back."
+	overlay_content = "_holo"
+	default_ammo = /datum/ammo/bullet/rifle/holo_target
+
+/obj/item/ammo_box/rounds/holo/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/holo_custom
+	name = "\improper rifle ammunition box (10x24mm holo-target custom)"
+	desc = "A 10x24mm holo-target ammunition box. Used to refill M41A MK2 holo-target magazines. It comes with a leather strap allowing to wear it on the back."
+	overlay_content = "_holo_custom"
+	default_ammo = /datum/ammo/bullet/rifle/holo_target_custom
+
+/obj/item/ammo_box/rounds/holo_custom/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/explosive
+	name = "\improper rifle ammunition box (10x24mm explosive)"
+	desc = "A 10x24mm explosive ammunition box. Used to refill M41A MK2 explosive magazines. It comes with a leather strap allowing to wear it on the back."
+	overlay_content = "_explosive"
+	default_ammo = /datum/ammo/bullet/rifle/explosive
+
+/obj/item/ammo_box/rounds/explosive/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/explosive_custom
+	name = "\improper rifle ammunition box (10x24mm explosive custom)"
+	desc = "A 10x24mm explosive ammunition box. Used to refill M41A MK2 explosive magazines. It comes with a leather strap allowing to wear it on the back."
+	overlay_content = "_explosive_custom"
+	default_ammo = /datum/ammo/bullet/rifle/explosive_custom
+
+/obj/item/ammo_box/rounds/explosive_custom/empty
 	empty = TRUE
 
 /obj/item/ammo_box/rounds/incen
@@ -48,9 +102,30 @@
 	caliber = "10x20mm"
 	icon_state = "base_m39"
 	overlay_content = "_hv"
+	matter = list("metal" = 37500, "plastic" = 10000) // 10 metal, 5 plastic
 	default_ammo = /datum/ammo/bullet/smg/m39
 
 /obj/item/ammo_box/rounds/smg/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/smg/holo
+	name = "\improper SMG ammunition box (10x20mm holo-target)"
+	desc = "A 10x20mm holo-target ammunition box. Used to refill M39 holo-target magazines. It comes with a leather strap allowing to wear it on the back."
+	caliber = "10x20mm"
+	overlay_content = "_holo"
+	default_ammo = /datum/ammo/bullet/smg/holo_target
+
+/obj/item/ammo_box/rounds/smg/holo/empty
+	empty = TRUE
+
+/obj/item/ammo_box/rounds/smg/holo_custom
+	name = "\improper SMG ammunition box (10x20mm holo-target custom)"
+	desc = "A 10x20mm holo-target ammunition box. Used to refill M39 holo-target magazines. It comes with a leather strap allowing to wear it on the back."
+	caliber = "10x20mm"
+	overlay_content = "_holo_custom"
+	default_ammo = /datum/ammo/bullet/smg/holo_target_custom
+
+/obj/item/ammo_box/rounds/smg/holo_custom/empty
 	empty = TRUE
 
 /obj/item/ammo_box/rounds/smg/ap
@@ -63,12 +138,29 @@
 /obj/item/ammo_box/rounds/smg/ap/empty
 	empty = TRUE
 
+/obj/item/ammo_box/rounds/smg/ap_custom
+	name = "\improper SMG ammunition box (10x20mm custom AP)"
+	desc = "A 10x20mm armor-piercing ammunition box. Used to refill M39 AP magazines. It comes with a leather strap allowing to wear it on the back."
+	caliber = "10x20mm"
+	overlay_content = "_ap_custom"
+	default_ammo = /datum/ammo/bullet/smg/ap_custom
+
+/obj/item/ammo_box/rounds/smg/ap_custom/empty
+	empty = TRUE
+
 /obj/item/ammo_box/rounds/smg/le
 	name = "\improper SMG ammunition box (10x20mm LE)"
 	desc = "A 10x20mm armor-shredding ammunition box. Used to refill M39 LE magazines. It comes with a leather strap allowing to wear it on the back."
 	caliber = "10x20mm"
 	overlay_content = "_le"
 	default_ammo = /datum/ammo/bullet/smg/le
+
+/obj/item/ammo_box/rounds/smg/le_custom
+	name = "\improper SMG ammunition box (10x20mm custom LE)"
+	desc = "A 10x20mm armor-shredding ammunition box. Used to refill M39 LE magazines. It comes with a leather strap allowing to wear it on the back."
+	caliber = "10x20mm"
+	overlay_content = "_le_custom"
+	default_ammo = /datum/ammo/bullet/smg/le_custom
 
 /obj/item/ammo_box/rounds/smg/le/empty
 	empty = TRUE

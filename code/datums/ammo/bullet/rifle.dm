@@ -39,6 +39,22 @@
 	damage = 25
 	holo_stacks = 15
 
+/datum/ammo/bullet/rifle/holo_target_custom
+	name = "custom holo-targeting rifle bullet"
+	damage = 15
+	/// inflicts this many holo stacks per bullet hit
+	var/holo_stacks = 5
+	/// modifies the default cap limit of 100 by this amount
+	var/bonus_damage_cap_increase = 0
+	/// multiplies the default drain of 5 holo stacks per second by this amount
+	var/stack_loss_multiplier = 1
+	bullet_duraloss = BULLET_DURABILITY_LOSS_MEDIUM // holostacks would be more OP  if mass produced are these power same as regular holo targeting bullets
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_FAIR
+
+/datum/ammo/bullet/rifle/holo_target_custom/on_hit_mob(mob/hit_mob, obj/projectile/bullet)
+	. = ..()
+	hit_mob.AddComponent(/datum/component/bonus_damage_stack, holo_stacks, world.time, bonus_damage_cap_increase, stack_loss_multiplier)
+
 /datum/ammo/bullet/rifle/explosive
 	name = "explosive rifle bullet"
 
@@ -60,11 +76,39 @@
 	if(T.density)
 		cell_explosion(T, 80, 40, EXPLOSION_FALLOFF_SHAPE_LINEAR, P.dir, P.weapon_cause_data)
 
+/datum/ammo/bullet/rifle/explosive_custom
+	name = "custom explosive rifle bullet"
+	damage = 10
+	accurate_range = 22
+	accuracy = 0
+	shell_speed = AMMO_SPEED_TIER_4
+	damage_falloff = DAMAGE_FALLOFF_TIER_9
+	bullet_duraloss = BULLET_DURABILITY_LOSS_SPECIAL
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_SPECIAL
+
+/datum/ammo/bullet/rifle/explosive_custom/on_hit_mob(mob/M, obj/projectile/P)
+	cell_explosion(get_turf(M), 20, 100, EXPLOSION_FALLOFF_SHAPE_EXPONENTIAL, P.dir, P.weapon_cause_data)
+
+/datum/ammo/bullet/rifle/explosive_custom/on_hit_obj(obj/O, obj/projectile/P)
+	cell_explosion(get_turf(O), 20, 100, EXPLOSION_FALLOFF_SHAPE_EXPONENTIAL, P.dir, P.weapon_cause_data)
+
+/datum/ammo/bullet/rifle/explosive_custom/on_hit_turf(turf/T, obj/projectile/P)
+	if(T.density)
+		cell_explosion(T, 20, 100, EXPLOSION_FALLOFF_SHAPE_LINEAR, P.dir, P.weapon_cause_data)
+
 /datum/ammo/bullet/rifle/ap
 	name = "armor-piercing rifle bullet"
 
 	damage = 30
 	penetration = ARMOR_PENETRATION_TIER_8
+
+/datum/ammo/bullet/rifle/ap_custom
+	name = "custom armor-piercing rifle bullet"
+
+	damage = 25
+	penetration = ARMOR_PENETRATION_TIER_7
+	bullet_duraloss = BULLET_DURABILITY_LOSS_MEDIUM
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_MEDIUM
 
 // Basically AP but better. Focused at taking out armour temporarily
 /datum/ammo/bullet/rifle/ap/toxin
@@ -112,6 +156,15 @@
 	pen_armor_punch = 5
 	bullet_duraloss = BULLET_DURABILITY_LOSS_HIGH
 	bullet_duramage = BULLET_DURABILITY_DAMAGE_HIGH
+
+/datum/ammo/bullet/rifle/le_custom
+	name = "custom armor-shredding rifle bullet"
+
+	damage = 15
+	penetration = ARMOR_PENETRATION_TIER_4
+	pen_armor_punch = 5
+	bullet_duraloss = BULLET_DURABILITY_LOSS_SEVERE
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_CRITICAL
 
 /datum/ammo/bullet/rifle/heap
 	name = "high-explosive armor-piercing rifle bullet"

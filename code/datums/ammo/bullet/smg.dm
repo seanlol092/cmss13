@@ -32,6 +32,48 @@
 	penetration = ARMOR_PENETRATION_TIER_6
 	shell_speed = AMMO_SPEED_TIER_4
 
+/datum/ammo/bullet/smg/ap_custom
+	name = "custom armor-piercing submachinegun bullet"
+	icon_state = "smg_ap_custom"
+
+	damage = 15
+	penetration = ARMOR_PENETRATION_TIER_6
+	shell_speed = AMMO_SPEED_TIER_4
+	bullet_duraloss = BULLET_DURABILITY_LOSS_MEDIUM
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_MEDIUM
+
+/datum/ammo/bullet/smg/holo_target
+	name = "holo-targeting smg bullet"
+	damage = 10
+	/// inflicts this many holo stacks per bullet hit
+	var/holo_stacks = 5
+	/// modifies the default cap limit of 100 by this amount
+	var/bonus_damage_cap_increase = 0
+	/// multiplies the default drain of 5 holo stacks per second by this amount
+	var/stack_loss_multiplier = 1
+	bullet_duraloss = BULLET_DURABILITY_LOSS_LOW // holostacks would be more powerful if there were tens of thousands of marines firing at something at once with these
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_LOW
+
+/datum/ammo/bullet/smg/holo_target/on_hit_mob(mob/hit_mob, obj/projectile/bullet)
+	. = ..()
+	hit_mob.AddComponent(/datum/component/bonus_damage_stack, holo_stacks, world.time, bonus_damage_cap_increase, stack_loss_multiplier)
+
+/datum/ammo/bullet/smg/holo_target_custom
+	name = "custom holo-targeting smg bullet"
+	damage = 5
+	/// inflicts this many holo stacks per bullet hit
+	var/holo_stacks = 2
+	/// modifies the default cap limit of 100 by this amount
+	var/bonus_damage_cap_increase = 0
+	/// multiplies the default drain of 5 holo stacks per second by this amount
+	var/stack_loss_multiplier = 1
+	bullet_duraloss = BULLET_DURABILITY_LOSS_LOW // holostacks would be more powerful if there were tens of thousands of marines firing at something at once with these
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_LOW
+
+/datum/ammo/bullet/smg/holo_target_custom/on_hit_mob(mob/hit_mob, obj/projectile/bullet)
+	. = ..()
+	hit_mob.AddComponent(/datum/component/bonus_damage_stack, holo_stacks, world.time, bonus_damage_cap_increase, stack_loss_multiplier)
+
 /datum/ammo/bullet/smg/heap
 	name = "high-explosive armor-piercing submachinegun bullet"
 
@@ -116,6 +158,18 @@
 	pen_armor_punch = 4
 	bullet_duraloss = BULLET_DURABILITY_LOSS_HIGH
 	bullet_duramage = BULLET_DURABILITY_DAMAGE_MEDIUM
+
+/datum/ammo/bullet/smg/le_custom
+	name = "custom armor-shredding submachinegun bullet"
+	icon_state = "smg_le_custom"
+
+	damage = 10
+	penetration = ARMOR_PENETRATION_TIER_4
+	shell_speed = AMMO_SPEED_TIER_3
+	damage_falloff = DAMAGE_FALLOFF_TIER_10
+	pen_armor_punch = 2
+	bullet_duraloss = BULLET_DURABILITY_LOSS_INSUBSTANTIAL
+	bullet_duramage = BULLET_DURABILITY_DAMAGE_HIGH
 
 /datum/ammo/bullet/smg/rubber
 	name = "rubber submachinegun bullet"

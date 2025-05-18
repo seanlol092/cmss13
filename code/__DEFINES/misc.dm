@@ -184,6 +184,28 @@
 #define ITEM_ACCESSORY_UPGRADE "Items"
 #define ITEM_ARMOR_UPGRADE "Armor"
 
+// OT stuff
+#define ORDNANCE_UPGRADE_TECH "Technologies"
+#define ORDNANCE_UPGRADE_ITEM "Items"
+#define ORDNANCE_UPGRADE_LATHE "Armylathe Upgrades"
+#define ARMYLATHE_MATS_UPGRADE "Armylathe Efficiency Upgrade"
+#define CUSTOM_ROCKET "88mm Rocket Tube"
+#define CUSTOM_ROCKET_WARHEAD "88mm Rocket Warhead"
+#define CUSTOM_SHELL "80mm Mortar Shell"
+#define CUSTOM_SHELL_WARHEAD "80mm Mortar Warhead"
+#define CUSTOM_SHELL_CAMERA "80mm Mortar Camera Warhead"
+#define CUSTOM_C4 "C4 Plastic Casing"
+#define CUSTOM_CLAYMORE "M20 Mine Casing"
+//Rifle ammo
+#define CUSTOM_RIFLE_AP_AMMO "Custom Rifle ammunition box (10x24mm)"
+#define CUSTOM_RIFLE_HOLO_AMMO "Custom Rifle ammunition box (10x24mm holo-target)"
+#define CUSTOM_RIFLE_LE_AMMO "Custom Rifle ammunition box (10x24mm LE)"
+#define CUSTOM_RIFLE_EXPLOSIVE_AMMO "Custom Rifle ammunition box (10x24mm explosive)"
+//SMG ammo
+#define CUSTOM_SMG_AP_AMMO "Custom SMG ammunition box (10x20mm)"
+#define CUSTOM_SMG_HOLO_AMMO "Custom SMG ammunition box (10x20mm holo-target)"
+#define CUSTOM_SMG_LE_AMMO "Custom SMG ammunition box (10x20mm LE)"
+
 //injector plate stuff
 #define EMERGENCY_PLATE_OD_PROTECTION_OFF 0
 #define EMERGENCY_PLATE_OD_PROTECTION_STRICT 1

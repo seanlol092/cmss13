@@ -15,6 +15,7 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 
+	var/list/upgrades = list()
 	var/list/stored_material = list("metal" = 30000, "glass" = 2000)
 	var/list/projected_stored_material // will be <= stored_material values
 	var/list/storage_capacity = list("metal" = 0, "glass" = 0)
@@ -30,6 +31,7 @@
 		/obj/item/stock_parts/console_screen
 	)
 
+	var/material_multiplier = 1
 	var/panel_open = FALSE
 	var/hacked = FALSE
 	var/shocked = FALSE
@@ -64,9 +66,11 @@
 	if(isnull(recipes))
 		recipes = list()
 		categories = list()
-		for(var/R in typesof(/datum/autolathe/recipe)-/datum/autolathe/recipe-/datum/autolathe/recipe/armylathe-/datum/autolathe/recipe/medilathe)
+		for(var/R in typesof(/datum/autolathe/recipe)-/datum/autolathe/recipe-/datum/autolathe/recipe/armylathe-/datum/autolathe/recipe/ammofab-/datum/autolathe/recipe/medilathe)
 			var/datum/autolathe/recipe/recipe = new R
 			if(recipe.category in disabled_categories)
+				continue
+			if(recipe.locked)
 				continue
 			recipes += recipe
 			categories |= recipe.category
@@ -79,7 +83,7 @@
 						if(istype(I,/obj/item/stack/sheet))
 							recipe.resources[material] = I.matter[material] //Doesn't take more if it's just a sheet or something. Get what you put in.
 						else
-							recipe.resources[material] = floor(I.matter[material]*1.25) // More expensive to produce than they are to recycle.
+							recipe.resources[material] = floor(I.matter[material]*1.25 * material_multiplier) // More expensive to produce than they are to recycle.
 			QDEL_NULL(I)
 
 	//Create parts for lathe.
@@ -268,8 +272,8 @@
 
 // --- END TGUI --- \\
 
-/obj/structure/machinery/autolathe/attackby(obj/item/O as obj, mob/user as mob)
-	if(HAS_TRAIT(O, TRAIT_TOOL_SCREWDRIVER))
+/obj/structure/machinery/autolathe/attackby(obj/item/item as obj, mob/user as mob)
+	if(HAS_TRAIT(item, TRAIT_TOOL_SCREWDRIVER))
 		if(!skillcheck(user, SKILL_ENGINEER, SKILL_ENGINEER_TRAINED))
 			to_chat(user, SPAN_WARNING("You are not trained to dismantle machines..."))
 			return
@@ -280,12 +284,12 @@
 
 	if(panel_open)
 		//Don't eat multitools or wirecutters used on an open lathe.
-		if(HAS_TRAIT(O, TRAIT_TOOL_MULTITOOL) || HAS_TRAIT(O, TRAIT_TOOL_WIRECUTTERS))
+		if(HAS_TRAIT(item, TRAIT_TOOL_MULTITOOL) || HAS_TRAIT(item, TRAIT_TOOL_WIRECUTTERS))
 			attack_hand(user)
 			return
 
 		//Dismantle the frame.
-		if(HAS_TRAIT(O, TRAIT_TOOL_CROWBAR))
+		if(HAS_TRAIT(item, TRAIT_TOOL_CROWBAR))
 			dismantle()
 			return
 
@@ -293,7 +297,7 @@
 		return
 
 	//Resources are being loaded.
-	var/obj/item/eating = O
+	var/obj/item/eating = item
 	if(!eating.matter)
 		to_chat(user, "\The [eating] does not contain significant amounts of useful materials and cannot be accepted.")
 		return
@@ -341,12 +345,67 @@
 	if(istype(eating,/obj/item/stack))
 		var/obj/item/stack/stack = eating
 		stack.use(max(1,floor(total_used/mass_per_sheet))) // Always use at least 1 to prevent infinite materials.
-	else if(user.temp_drop_inv_item(O))
-		qdel(O)
+	else if(user.temp_drop_inv_item(item))
+		qdel(item)
 
 	update_printables()
 	updateUsrDialog()
 	return TRUE //so the item's afterattack isn't called
+
+/obj/structure/machinery/autolathe/proc/add_recipe(list/recipe_name)
+	var/had_new_recipes = FALSE
+	for(var/rec in typesof(/datum/autolathe/recipe)-/datum/autolathe/recipe-/datum/autolathe/recipe/armylathe-/datum/autolathe/recipe/medilathe)
+		var/datum/autolathe/recipe/recipe = new rec
+
+		if(recipe_name.Find(recipe.name))
+			recipes += recipe
+			had_new_recipes = TRUE
+			recipe.locked = FALSE
+
+			var/obj/item/item = new recipe.path
+			if(item.matter && !recipe.resources)
+				recipe.resources = list()
+				for(var/material in item.matter)
+					if(!isnull(storage_capacity[material]))
+						if(istype(item,/obj/item/stack/sheet))
+							recipe.resources[material] = item.matter[material]
+						else
+							recipe.resources[material] = floor(item.matter[material]*1.25 * material_multiplier)
+
+	if(had_new_recipes)
+		update_printables()
+		return TRUE
+	return FALSE
+
+/obj/structure/machinery/autolathe/proc/apply_upgrades(list/upgrades_to_apply)
+	upgrades += upgrades_to_apply
+	for(var/upgrade in upgrades_to_apply)
+
+		if(upgrade == ARMYLATHE_MATS_UPGRADE)
+			material_multiplier = 0.5
+			for(var/rec in subtypesof(/datum/autolathe/recipe/armylathe))
+				var/datum/autolathe/recipe/recipe = new rec
+
+				for(var/datum/autolathe/recipe/casing in recipes)
+					if(!casing)
+						continue
+					if(casing.locked)
+						continue
+					if(casing.type == recipe.type)
+						recipes -= casing
+
+						var/obj/item/item = new recipe.path
+						if(item.matter && !recipe.resources)
+							recipe.resources = list()
+							for(var/material in item.matter)
+								if(!isnull(storage_capacity[material]))
+									if(istype(item,/obj/item/stack/sheet))
+										recipe.resources[material] = item.matter[material]
+									else
+										recipe.resources[material] = floor(item.matter[material]*1.25 * material_multiplier)
+										recipes += recipe
+
+	update_printables()
 
 //Updates overall lathe storage size.
 /obj/structure/machinery/autolathe/RefreshParts()
@@ -591,6 +650,35 @@
 		to_chat(user, SPAN_WARNING("You have no idea how to operate the [name]."))
 		return FALSE
 	. = ..()
+
+/obj/structure/machinery/autolathe/ammofab
+	name = "\improper Ammofab"
+	desc = "A specialized autolathe made for printing ammunition."
+	icon_state = "autolathe" //temp sprite
+	base_state = "autolathe" //temp sprite
+	icon = 'icons/obj/structures/machinery/autolathe.dmi'
+	recipes = null
+	categories = null
+	density = TRUE
+	disabled_categories = AUTOLATHE_AMMOFAB_DISABLED_CATS_LIST
+	storage_capacity = list("metal" = 0, "plastic" = 0)
+	stored_material =  list("metal" = 0, "plastic" = 0)
+
+/obj/structure/machinery/autolathe/ammofab/full
+	stored_material =  list("metal" = 187500, "plastic" = 40000) //50 plastic and 20 metal sheets
+
+/obj/structure/machinery/autolathe/ammofab/attack_hand(mob/user)
+	if(!skillcheck(user, SKILL_ENGINEER, SKILL_ENGINEER_TRAINED))
+		to_chat(user, SPAN_WARNING("You have no idea how to operate the [name]."))
+		return FALSE
+	. = ..()
+
+/obj/structure/machinery/autolathe/ammofab/Initialize()
+	. = ..()
+	if(dir == SOUTH || dir == EAST)
+		make_loc = get_step(get_step(loc, EAST), EAST)
+	else
+		make_loc = get_step(get_step(loc, EAST), WEST)
 
 /obj/structure/machinery/autolathe/medilathe
 	name = "\improper Medilathe"

@@ -6,6 +6,7 @@
 	var/category
 	var/power_use = 0
 	var/is_stack
+	var/locked = FALSE
 
 /datum/autolathe/recipe/bucket
 	name = "bucket"
@@ -285,6 +286,7 @@
 	name = "M15 Grenade Casing"
 	path = /obj/item/explosive/grenade/custom/large
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/m20
 	name = "M20 Mine Casing"
@@ -295,31 +297,37 @@
 	name = "C4 Plastic Casing"
 	path = /obj/item/explosive/plastic/custom
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/rocket_tube
 	name = "88mm Rocket Tube"
 	path = /obj/item/ammo_magazine/rocket/custom
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/rocket_warhead
 	name = "88mm Rocket Warhead"
 	path = /obj/item/explosive/warhead/rocket
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/mortar_shell
 	name = "80mm Mortar Shell"
 	path = /obj/item/mortar_shell/custom
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/mortar_warhead
 	name = "80mm Mortar Warhead"
 	path = /obj/item/explosive/warhead/mortar
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/mortar_camera_warhead
 	name = "80mm Mortar Camera Warhead"
 	path = /obj/item/explosive/warhead/mortar/camera
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+	locked = TRUE
 
 /datum/autolathe/recipe/armylathe/flamer_tank
 	name = "Custom M240A1 Fuel Tank"
@@ -335,6 +343,60 @@
 	name = "Custom M240A1 Smoke Tank"
 	path = /obj/item/ammo_magazine/flamer_tank/smoke
 	category = AUTOLATHE_CATEGORY_EXPLOSIVES
+
+///AmmoFab recipes
+/datum/autolathe/recipe/ammofab
+	category = AUTOLATHE_CATEGORY_AMMOFAB
+
+//Rifles
+/datum/autolathe/recipe/ammofab/rifle
+	name = "Rifle ammunition box (10x24mm)"
+	path = /obj/item/ammo_box/rounds
+
+//SMGs
+/datum/autolathe/recipe/ammofab/smg
+	name = "SMG HV ammunition box (10x20mm)"
+	path = /obj/item/ammo_box/rounds/smg
+
+///AmmoMod recipes
+
+/datum/autolathe/recipe/ammomod
+	category = AUTOLATHE_CATEGORY_AMMOMOD
+	locked = TRUE
+
+//Rifle
+/datum/autolathe/recipe/ammomod/rifle/ap/custom
+	name = "Custom Rifle ammunition box (10x24mm AP)"
+	path = /obj/item/ammo_box/rounds/ap_custom
+
+/datum/autolathe/recipe/ammomod/rifle/holo/custom
+	name = "Custom Rifle ammunition box (10x24mm holo-target)"
+	path = /obj/item/ammo_box/rounds/holo_custom
+
+/datum/autolathe/recipe/ammomod/rifle/le/custom
+	name = "Custom Rifle ammunition box (10x24mm LE)"
+	path = /obj/item/ammo_box/rounds/le_custom
+
+/datum/autolathe/recipe/ammomod/rifle/explosive/custom
+	name = "Custom Rifle ammunition box (10x24mm explosive)"
+	path = /obj/item/ammo_box/rounds/explosive_custom
+
+//SMGs
+/datum/autolathe/recipe/ammomod/smg/ap/custom
+	name = "Custom SMG ammunition box (10x20mm AP)"
+	path = /obj/item/ammo_box/rounds/ap_custom
+
+/datum/autolathe/recipe/ammomod/smg/holo/custom
+	name = "Custom SMG ammunition box (10x20mm holo-target)"
+	path = /obj/item/ammo_box/rounds/holo_custom
+
+/datum/autolathe/recipe/ammomod/smg/le/custom
+	name = "Custom SMG ammunition box (10x20mm LE)"
+	path = /obj/item/ammo_box/rounds/le_custom
+
+/datum/autolathe/recipe/ammomod/smg/explosive/custom
+	name = "Custom SMG ammunition box (10x20mm explosive)"
+	path = /obj/item/ammo_box/rounds/explosive_custom
 
 //Medilathe recipes
 /datum/autolathe/recipe/medilathe

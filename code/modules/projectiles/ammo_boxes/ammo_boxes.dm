@@ -270,6 +270,7 @@
 	icon_state = "base_m41"
 	item_state = "base_m41"
 	flags_equip_slot = SLOT_BACK
+	matter = list("metal" = 56250, "plastic" = 10000) // 15 metal, 5 plastic
 	var/overlay_gun_type = "_rounds" //used for ammo type color overlay
 	var/overlay_content = "_reg"
 	var/default_ammo = /datum/ammo/bullet/rifle

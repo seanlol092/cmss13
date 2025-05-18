@@ -45,6 +45,13 @@
 	ammo_band_color = AMMO_BAND_COLOR_EXPLOSIVE
 	mag_jam_modifier = MAG_JAM_MOD_RIFLE_CRITICAL
 
+/obj/item/ammo_magazine/rifle/explosive_custom
+	name = "\improper M41A custom explosive magazine (10x24mm)"
+	desc = "A 10mm assault rifle magazine. Oh god... just don't hit friendlies with it."
+	default_ammo = /datum/ammo/bullet/rifle/explosive_custom
+	ammo_band_color = AMMO_BAND_COLOR_EXPLOSIVE
+	mag_jam_modifier = MAG_JAM_MOD_RIFLE_CRITICAL //literally shooting grenades, of course its gonna jam your gun a lot more
+
 /obj/item/ammo_magazine/rifle/heap
 	name = "\improper M41A HEAP magazine (10x24mm)"
 	desc = "A 10mm armor piercing high explosive magazine."
@@ -58,12 +65,40 @@
 	default_ammo = /datum/ammo/bullet/rifle/ap
 	ammo_band_color = AMMO_BAND_COLOR_AP
 
+/obj/item/ammo_magazine/rifle/ap_custom
+	name = "\improper M41A custom AP magazine (10x24mm)"
+	desc = "A 10mm armor piercing magazine."
+	default_ammo = /datum/ammo/bullet/rifle/ap_custom
+	ammo_band_color = AMMO_BAND_COLOR_AP
+	mag_jam_modifier = MAG_JAM_MOD_RIFLE_MEDIUM
+
 /obj/item/ammo_magazine/rifle/le
 	name = "\improper M41A LE magazine (10x24mm)"
 	desc = "A 10mm armor shredding magazine."
 	default_ammo = /datum/ammo/bullet/rifle/le
 	ammo_band_color = AMMO_BAND_COLOR_LIGHT_EXPLOSIVE
 	mag_jam_modifier = MAG_JAM_MOD_RIFLE_MEDIUM
+
+/obj/item/ammo_magazine/rifle/le_custom
+	name = "\improper M41A custom LE magazine (10x24mm)"
+	desc = "A 10mm armor shredding magazine."
+	default_ammo = /datum/ammo/bullet/rifle/le_custom
+	ammo_band_color = AMMO_BAND_COLOR_LIGHT_EXPLOSIVE
+	mag_jam_modifier = MAG_JAM_MOD_RIFLE_HIGH
+
+/obj/item/ammo_magazine/rifle/holo_target
+	name = "\improper M41A holo-targeting magazine (10x24mm)"
+	desc = "A 10mm holo-targeting magazine."
+	default_ammo = /datum/ammo/bullet/rifle/holo_target
+	ammo_band_color = AMMO_BAND_COLOR_HOLOTARGETING
+	mag_jam_modifier = MAG_JAM_MOD_RIFLE_HIGH
+
+/obj/item/ammo_magazine/rifle/holo_target_custom
+	name = "\improper M41A custom holo-targeting magazine (10x24mm)"
+	desc = "A 10mm holo-targeting magazine."
+	default_ammo = /datum/ammo/bullet/rifle/holo_target_custom
+	ammo_band_color = AMMO_BAND_COLOR_HOLOTARGETING
+	mag_jam_modifier = MAG_JAM_MOD_RIFLE_CRITICAL
 
 /obj/item/ammo_magazine/rifle/penetrating
 	name = "\improper M41A wall-penetrating magazine (10x24mm)"
@@ -106,6 +141,13 @@
 	default_ammo = /datum/ammo/bullet/rifle/ap
 	ammo_band_color = AMMO_BAND_COLOR_AP
 	mag_jam_modifier = MAG_JAM_MOD_RIFLE_INSUBSTANTIAL //standard MK1 mags get innate jam chances due to interactibility with the m46c, also lore accurate-ish
+
+/obj/item/ammo_magazine/rifle/m41aMK1/ap_custom
+	name = "\improper M41A MK1 custom AP magazine (10x24mm)"
+	desc = "A long rectangular box of rounds that is only compatible with the older M41A MK1. Holds up to 95 rounds. This one contains custom AP bullets."
+	default_ammo = /datum/ammo/bullet/rifle/ap_custom
+	ammo_band_color = AMMO_BAND_COLOR_AP
+	mag_jam_modifier = MAG_JAM_MOD_RIFLE_MEDIUM
 
 /obj/item/ammo_magazine/rifle/m41aMK1/heap
 	name = "\improper M41A MK1 HEAP magazine (10x24mm)"

@@ -375,6 +375,38 @@
 		"absinthe",
 	)
 
+/obj/structure/machinery/chem_dispenser/ordnance
+	name = "industrial chemical dispenser"
+	desc = "A complex machine for mixing elements into chemicals. A Wey-Yu product."
+	icon = 'icons/obj/structures/machinery/science_machines.dmi'
+	icon_state = "industry_dispenser"
+	req_skill = SKILL_ENGINEER
+	req_skill_level = SKILL_ENGINEER_MASTER
+	network = "Ordnance"
+	dispensable_reagents = list(
+		"hydrogen",
+		"lithium",
+		"carbon",
+		"nitrogen",
+		"oxygen",
+		"fluorine",
+		"sodium",
+		"aluminum",
+		"silicon",
+		"phosphorus",
+		"sulfur",
+		"chlorine",
+		"potassium",
+		"iron",
+		"copper",
+		"mercury",
+		"radium",
+		"water",
+		"ethanol",
+		"sugar",
+		"sulphuric acid",
+	)
+
 /obj/structure/machinery/chem_dispenser/soda/beer/yautja
 	icon = 'icons/obj/structures/machinery/yautja_machines.dmi'
 	breakable = FALSE
